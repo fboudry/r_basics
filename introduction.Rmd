@@ -13,7 +13,11 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE, include = FALSE)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = TRUE,
+	warning = TRUE
+)
 ```
 
 # Le fichier Rmd
@@ -30,7 +34,9 @@ exemple ce [fichier](exemples/script.R) (disponible dans les exemples: script.R)
 # Les données
 
 Pour lire les données d'un fichier on utilise "read.csv", et on pense à indiquer
-le bon chemin d'accès
+le bon chemin d'accès.
+Evitez autant que possible d'ovrir vos donnés avec excel, ouvrez les avec
+LibreOffice et vérifiez vos séparateurs et délimiteurs décimaux.
 
 ```{r cars}
 # Ouvrir le fichier de données
@@ -44,7 +50,7 @@ Les données sont stockés dans un dataframe (un type de variables)
 
 # Graphiques
 
-```{r graphique, echo=FALSE, fig.heigh=4, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r graphique}
 #plot(Tableau$FSIQ)
 hist(
   tableau$FSIQ,
@@ -75,7 +81,7 @@ abline(h = mean(tableau$VIQ), col = "blue")
 
 ## Graphique 2 à 2
 
-```{r graph 2, fig.height=8, fig.width=12}
+```{r graph 2}
 ## plot 2 à 2
 femmes <- tableau[tableau$Gender == 1, ]
 hommes <- tableau[tableau$Gender == 0, ]
