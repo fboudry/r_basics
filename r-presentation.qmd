@@ -1,0 +1,89 @@
+---
+title: "Les bases de R"
+author: "Félix Boudry"
+format: revealjs
+editor: visual
+---
+
+## R & Rstudio
+
+Deux choses très différentes:
+
+-   R est un language de programmation
+-   Rstudio est un IDE, une interface de développement
+
+R permet de programmer, Rstudio n'est là que pour faciliter le travail
+
+## Installation
+
+R et Rstudio sont tout deux disponibles gratuitement et sont opensource
+
+-   R est diponible sur CRAN (Comprehensive R Archive Network) pour Linux (à travers votre gestionaire de packets apt, pacman, etc.), pour [windows](https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe) et pour [macOS](https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.2.2-arm64.pkg)
+-   Rstudio est disponible sur posit.co pour [Linux](https://download1.rstudio.org/desktop/jammy/amd64/rstudio-2022.07.2-576-amd64.deb), pour [windows](https://download1.rstudio.org/desktop/windows/RStudio-2022.07.2-576.exe) et pour [macOS](https://download1.rstudio.org/desktop/macos/RStudio-2022.07.2-576.dmg)
+
+Des versions portables sont disponibles pour les deux si vous travaillez sur un poste sans droits admin.
+
+## Moi j'aime excel, pourquoi R?
+
+Plusieurs point pratiques:
+
+-   L'analyse à la chaîne
+-   Les gros fichiers
+-   La répétabilité
+-   La référence et la modularité
+
+# R
+
+## Débutons sur R
+
+Lancez R (PAS Rstudio) et tentons quelques commandes
+
+```{r, echo=TRUE}
+1 + 1
+x <- 3
+print(x)
+z <- "Hello world!"
+print(z)
+```
+
+R vous permet d'exécuter des commandes en direct, mais revenir en arrière pour exécuter une suite de commande est pénible.
+
+# Rstudio
+
+# Pourquoi Rstudio?
+
+Rstudio est un IDE et vous permet d'éditer différent formats de fichier principalement en R, en markdown et en python.
+
+-   R -\> language principalement pour les statistiques
+-   Markdown -\> language de mise en forme de text
+-   python -\> language pour du développement (principalement scientifique et de prototypes)
+
+## L'interface
+
+Dans Rstudio vous avez plusieur fenêtres:
+
+1.  Les scripts et fichiers que vous éditez
+2.  La console
+3.  L'environnement
+4.  Les outils
+
+# Notions de programmation
+
+## Les indispendables
+
+Pour connaître la racine (dossier de base) de votre projet:
+
+```{r, echo=TRUE, results='hide'}
+getwd()
+```
+
+-   "/home/Documents/mon_super_projet" est un chemin absolu (ou que l'on soit dans l'ordinateur on saura trouer ce chemin)
+-   "mon_super_projet/sous_dossier" est un chemin relatif, on le trouve seulement si on est déjà dans "Documents" (dossier qui contient "mon_super_projet")
+
+Pour lire vos données, appeler vos script, etc. il faut ABSOLUMENT indiquer le bon chemin d'accès!
+
+## Place à la pratique
+
+Direction le projet sur le gitlab de la [fac](git.univ-perp.fr/r_starter_pack).
+
+PS: R sert à tout, cette présentation est faîte en R et en Markdown!

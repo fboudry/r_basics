@@ -1,0 +1,311 @@
+---
+title: "Introduction"
+author: "Félix Boudry"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+  word_document: 
+    toc: yes
+  pdf_document: 
+    toc: yes
+    number_sections: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE, include = FALSE)
+```
+
+# Le fichier Rmd
+
+(Merci Thomas pour la base du fichier)
+
+Le fichier utilisé ici est en RMarkdown, c'est donc un fichier hybride dans
+lequel on peut mettre du text et du code et qui nous permet d'obtenir un
+document unique à la fin.
+Pour utiliser seulement du R on utilise un script r avec le format:
+nom_fichier.R; et on ne pourra y mettre que du R (et des commentaires) comme par
+exemple ce [fichier](exemples/script.R) (disponible dans les exemples: script.R)
+
+# Les données
+
+Pour lire les données d'un fichier on utilise "read.csv", et on pense à indiquer
+le bon chemin d'accès
+
+```{r cars}
+# Ouvrir le fichier de données
+tableau <- read.csv("Data/data.csv", sep = ";", dec = ".")
+
+# Statistiques descriptive simple
+summary(tableau)
+```
+
+Les données sont stockés dans un dataframe (un type de variables)
+
+# Graphiques
+
+```{r graphique, echo=FALSE, fig.heigh=4, message=FALSE, warning=FALSE, paged.print=FALSE}
+#plot(Tableau$FSIQ)
+hist(
+  tableau$FSIQ,
+  main = "variable FSIQ",
+  col = "yellow",
+  border = "red",
+  xlab = "valeurs du test FSIQ"
+)
+abline(v = mean(tableau$FSIQ), col = "magenta")
+abline(v = median(tableau$FSIQ), col = "cyan")
+
+boxplot(tableau$FSIQ, col = "green")
+abline(h = mean(tableau$FSIQ), col = "blue")
+
+hist(
+  tableau$VIQ,
+  main = "variable VIQ",
+  col = "yellow",
+  border = "red",
+  xlab = "Valeurs du test VIQ"
+)
+abline(v = mean(tableau$VIQ), col = "magenta")
+abline(v = median(tableau$VIQ), col = "cyan")
+
+boxplot(tableau$VIQ, col = "green")
+abline(h = mean(tableau$VIQ), col = "blue")
+```
+
+## Graphique 2 à 2
+
+```{r graph 2, fig.height=8, fig.width=12}
+## plot 2 à 2
+femmes <- tableau[tableau$Gender == 1, ]
+hommes <- tableau[tableau$Gender == 0, ]
+plot(
+  tableau$FSIQ,
+  tableau$VIQ,
+  pch = 22 ,
+  #0 à 25
+  col = "red",
+  #couleur du marqueur
+  bg = "cyan",
+  #20 -> 25
+  cex = 5,
+)
+
+relation <- lm(femmes$FSIQ ~ femmes$VIQ)
+
+abline(relation, col = "green")
+```
+
+## Corrélations
+
+```{r}
+femmes <- tableau[tableau$Gender == 1, ]
+hommes <- tableau[tableau$Gender == 0, ]
+
+cor.test(femmes$FSIQ, femmes$VIQ)
+cor.test(hommes$FSIQ, hommes$VIQ)
+
+plot(femmes$FSIQ, femmes$VIQ)
+abline(lm(femmes$FSIQ ~ femmes$VIQ), col = "red")
+
+plot(hommes$FSIQ, hommes$VIQ)
+abline(lm(hommes$FSIQ ~ hommes$VIQ), col = "red")
+```
+
+## Répartition
+
+```{r}
+#### FSIQ
+hist(
+  tableau$FSIQ,
+  main = "variable FSIQ",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test FSIQ"
+)
+abline(v = min(tableau$FSIQ), col = "brown")
+abline(v = max(tableau$FSIQ), col = "purple")
+abline(v = mean(tableau$FSIQ), col = "magenta")
+abline(v = median(tableau$FSIQ), col = "cyan")
+
+boxplot(tableau$FSIQ, col = "white")
+abline(h = mean(tableau$FSIQ), col = "blue")
+abline(h = median(tableau$FSIQ), col = "orange")
+
+```
+
+## Autres exemples
+
+```{r}
+plot(
+  tableau$FSIQ,
+  tableau$VIQ,
+  pch = 22 ,
+  #0 à 25
+  col = "red",
+  #couleur du marqueur
+  bg = "cyan",
+  #20 -> 25
+  cex = 5,
+)
+
+femmes <- tableau[tableau$Gender == 1, ]
+hommes <- tableau[tableau$Gender == 0, ]
+
+cor.test(femmes$FSIQ, femmes$VIQ)
+cor.test(hommes$FSIQ, hommes$VIQ)
+
+plot(femmes$FSIQ, femmes$VIQ)
+abline(lm(femmes$FSIQ ~ femmes$VIQ), col = "red")
+
+plot(hommes$FSIQ, hommes$VIQ)
+abline(lm(hommes$FSIQ ~ hommes$VIQ), col = "red")
+
+```
+
+```{r}
+#### VIQ
+hist(
+  tableau$VIQ,
+  main = "variable VIQ",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test VIQ"
+)
+abline(v = min(tableau$VIQ), col = "brown")
+abline(v = max(tableau$VIQ), col = "purple")
+abline(v = mean(tableau$VIQ), col = "magenta")
+abline(v = median(tableau$VIQ), col = "cyan")
+
+boxplot(tableau$VIQ, col = "white")
+abline(h = mean(tableau$VIQ), col = "blue")
+abline(h = median(tableau$VIQ), col = "orange")
+```
+
+```{r}
+plot(
+  tableau$VIQ,
+  tableau$PIQ,
+  pch = 22 ,
+  #0 à 25
+  col = "red",
+  #couleur du marqueur
+  bg = "cyan",
+  #20 -> 25
+  cex = 5,
+)
+
+femmes <- tableau[tableau$Gender == 1, ]
+hommes <- tableau[tableau$Gender == 0, ]
+
+cor.test(femmes$VIQ, femmes$PIQ)
+cor.test(hommes$VIQ, hommes$PIQ)
+
+plot(femmes$VIQ, femmes$PIQ)
+abline(lm(femmes$VIQ ~ femmes$PIQ), col = "red")
+
+plot(hommes$VIQ, hommes$PIQ)
+abline(lm(hommes$VIQ ~ hommes$PIQ), col = "red")
+```
+
+```{r}
+#### PIQ
+hist(
+  tableau$PIQ,
+  main = "variable PIQ",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test PIQ"
+)
+abline(v = min(tableau$PIQ), col = "brown")
+abline(v = max(tableau$PIQ), col = "purple")
+abline(v = mean(tableau$PIQ), col = "magenta")
+abline(v = median(tableau$PIQ), col = "cyan")
+
+boxplot(tableau$PIQ, col = "white")
+abline(h = mean(tableau$PIQ), col = "blue")
+abline(h = median(tableau$PIQ), col = "orange")
+
+plot(
+  tableau$PIQ,
+  tableau$FSIQ,
+  pch = 22 ,
+  #0 à 25
+  col = "red",
+  #couleur du marqueur
+  bg = "cyan",
+  #20 -> 25
+  cex = 5,
+)
+
+femmes <- tableau[tableau$Gender == 1, ]
+hommes <- tableau[tableau$Gender == 0, ]
+
+cor.test(femmes$FSIQ, femmes$PIQ)
+cor.test(hommes$FSIQ, hommes$PIQ)
+
+plot(femmes$FSIQ, femmes$PIQ)
+abline(lm(femmes$FSIQ ~ femmes$PIQ), col = "red")
+
+plot(hommes$FSIQ, hommes$PIQ)
+abline(lm(hommes$FSIQ ~ hommes$PIQ), col = "red")
+
+```
+
+```{r}
+#### Weight
+hist(
+  tableau$Weight,
+  main = "variable Weight",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test Weight"
+)
+abline(v = min(tableau$Weight, na.rm = TRUE), col = "brown")
+abline(v = max(tableau$Weight, na.rm = TRUE), col = "purple")
+abline(v = mean(tableau$Weight, na.rm = TRUE), col = "magenta")
+abline(v = median(tableau$Weight, na.rm = TRUE), col = "cyan")
+
+boxplot(tableau$Weight, col = "white")
+abline(h = mean(tableau$Weight, na.rm = TRUE), col = "blue")
+abline(h = median(tableau$Weight), col = "orange")
+```
+
+```{r}
+#### Height
+hist(
+  tableau$Height,
+  main = "variable Height",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test Height"
+)
+abline(v = min(tableau$Height, na.rm = TRUE), col = "brown")
+abline(v = max(tableau$Height, na.rm = TRUE), col = "purple")
+abline(v = mean(tableau$Height, na.rm = TRUE), col = "magenta")
+abline(v = median(tableau$Height, na.rm = TRUE), col = "cyan")
+
+boxplot(tableau$Height, col = "white")
+abline(h = mean(tableau$Height, na.rm = TRUE), col = "blue")
+abline(h = median(tableau$Height, na.rm = TRUE), col = "orange")
+```
+
+```{r}
+#### MRI_Count
+hist(
+  tableau$MRI_Count,
+  main = "variable MRI_Count",
+  col = "pink",
+  border = "red",
+  xlab = "valeurs du test MRI_Count"
+)
+abline(v = min(tableau$MRI_Count), col = "brown")
+abline(v = max(tableau$MRI_Count), col = "purple")
+abline(v = mean(tableau$MRI_Count), col = "magenta")
+abline(v = median(tableau$MRI_Count), col = "cyan")
+
+boxplot(tableau$MRI_Count, col = "white")
+abline(h = mean(tableau$MRI_Count), col = "blue")
+abline(h = median(tableau$MRI_Count), col = "orange")
+```
+
