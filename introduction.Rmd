@@ -18,9 +18,15 @@ knitr::opts_chunk$set(
 	message = TRUE,
 	warning = TRUE
 )
+# Ce bloc de code sert à configurer le comportement des chunk r.
+# Les lignes débutant par un "#" sont des lignes de commentaires, elles ne
+# seront pas exécutés ni imprimé dans le fichier final (sauf si on imprime le
+# code).
 ```
 
-# Le fichier Rmd
+# Analyse classique en STAPS
+
+## Le fichier Rmd
 
 (Merci Thomas pour la base du fichier)
 
@@ -31,14 +37,14 @@ Pour utiliser seulement du R on utilise un script r avec le format:
 nom_fichier.R; et on ne pourra y mettre que du R (et des commentaires) comme par
 exemple ce [fichier](exemples/script.R) (disponible dans les exemples: script.R)
 
-# Les données
+## Les données
 
 Pour lire les données d'un fichier on utilise "read.csv", et on pense à indiquer
 le bon chemin d'accès.
 Evitez autant que possible d'ovrir vos donnés avec excel, ouvrez les avec
 LibreOffice et vérifiez vos séparateurs et délimiteurs décimaux.
 
-```{r cars}
+```{r Import}
 # Ouvrir le fichier de données
 tableau <- read.csv("Data/data.csv", sep = ";", dec = ".")
 
@@ -48,10 +54,10 @@ summary(tableau)
 
 Les données sont stockés dans un dataframe (un type de variables)
 
-# Graphiques
+## Graphiques
 
 ```{r graphique}
-#plot(Tableau$FSIQ)
+
 hist(
   tableau$FSIQ,
   main = "variable FSIQ",
@@ -79,7 +85,7 @@ boxplot(tableau$VIQ, col = "green")
 abline(h = mean(tableau$VIQ), col = "blue")
 ```
 
-## Graphique 2 à 2
+### Graphique 2 à 2
 
 ```{r graph 2}
 ## plot 2 à 2
@@ -102,7 +108,7 @@ relation <- lm(femmes$FSIQ ~ femmes$VIQ)
 abline(relation, col = "green")
 ```
 
-## Corrélations
+### Corrélations
 
 ```{r}
 femmes <- tableau[tableau$Gender == 1, ]
@@ -118,7 +124,7 @@ plot(hommes$FSIQ, hommes$VIQ)
 abline(lm(hommes$FSIQ ~ hommes$VIQ), col = "red")
 ```
 
-## Répartition
+### Répartition
 
 ```{r}
 #### FSIQ
@@ -140,7 +146,7 @@ abline(h = median(tableau$FSIQ), col = "orange")
 
 ```
 
-## Autres exemples
+### Autres exemples
 
 ```{r}
 plot(
@@ -314,4 +320,34 @@ boxplot(tableau$MRI_Count, col = "white")
 abline(h = mean(tableau$MRI_Count), col = "blue")
 abline(h = median(tableau$MRI_Count), col = "orange")
 ```
+
+## Tests statistiques
+
+# Un cours plus complet
+
+## Les bases de la programmation
+
+### Language de programmation
+
+### Variables
+
+### Fonctions
+
+### Environement
+
+## Import de donnés
+
+### Importer différents types de données
+
+#### CSV
+
+#### XLSX
+
+#### JSON
+
+### Analyse graphique primaire
+
+### Analyse statistique
+
+### Représentations graphiques
 
